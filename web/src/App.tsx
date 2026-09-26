@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Globe, EyeOff, ShieldAlert, ArrowRight, Check, Puzzle, WifiOff, Gauge } from "lucide-react";
+import { Globe, EyeOff, ShieldAlert, ArrowRight, Check, Puzzle, WifiOff, Gauge, Download } from "lucide-react";
 import PopupPreview from "@/components/PopupPreview";
+import StarButton from "@/components/StarButton";
 import { FaGithub as Github } from "react-icons/fa";
 
 import { StarsBackground } from "@/components/ui/stars-background";
@@ -17,6 +18,7 @@ import { joinWaitlist, track } from "@/lib/launchpad";
 
 gsap.registerPlugin(ScrollTrigger);
 const REPO = "https://github.com/Swastikkkkk/chatsnitch";
+const ZIP = "https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch-v0.1.0.zip";
 
 const STATS = [
   { n: "900K", unit: "users", when: "December 2025", src: "OX Security", href: "https://www.ox.security/blog/malicious-chrome-extensions-steal-chatgpt-deepseek-conversations/", body: "Two fake AI extensions sent ChatGPT and DeepSeek chats to attacker servers every 30 minutes. One had Google's Featured badge." },
@@ -100,7 +102,7 @@ export default function App() {
               <a className="hidden md:inline hover:text-paper" href="#why">Why</a>
               <a className="hidden md:inline hover:text-paper" href="#how">How it works</a>
               <a className="hidden md:inline hover:text-paper" href="#install">Install</a>
-              <a className="inline-flex items-center gap-1.5 hover:text-paper" href={REPO} target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a>
+              <StarButton />
             </div>
           </div>
         </nav>
@@ -125,9 +127,7 @@ export default function App() {
             <MovingBorderButton as="a" href="#install" onClick={() => track("cta_get")} borderRadius="999px" duration={3500} containerClassName="h-12 w-48" borderClassName="bg-[radial-gradient(#fff_40%,transparent_60%)]" className="border-line bg-black text-paper font-medium gap-2">
               Get ChatSnitch <ArrowRight size={16} />
             </MovingBorderButton>
-            <a href={REPO} onClick={() => track("cta_code")} target="_blank" rel="noreferrer" className="inline-flex h-12 items-center gap-2 rounded-full px-5 text-paper/80 hover:text-paper">
-              <Github size={18} /> Read the code
-            </a>
+            <StarButton size="lg" />
           </div>
         </header>
 
@@ -219,11 +219,19 @@ export default function App() {
         <section id="install" className="mx-auto max-w-6xl px-4 md:px-8 py-24">
           <h2 className="reveal display font-semibold text-4xl md:text-6xl">Install.</h2>
           <p className="reveal mt-4 max-w-2xl text-lg text-fog">The Chrome Web Store listing is on the way. Until then, loading it yourself takes about a minute.</p>
+          <div className="reveal mt-8 flex flex-wrap items-center gap-3">
+            <a href={ZIP} onClick={() => track("cta_download_btn")} className="inline-flex h-12 items-center gap-2 rounded-full bg-paper px-6 font-medium text-black transition hover:bg-white">
+              <Download size={18} /> Download v0.1.0
+            </a>
+            <a href={REPO} onClick={() => track("cta_code")} target="_blank" rel="noreferrer" className="inline-flex h-12 items-center gap-2 rounded-full px-5 text-paper/80 hover:text-paper">
+              <Github size={18} /> Read the code first
+            </a>
+          </div>
           <ol className="steps mt-12 grid gap-4 md:grid-cols-4">
             {[
-              <>Download the code from <a className="underline underline-offset-4" onClick={() => track("cta_download")} href={REPO} target="_blank" rel="noreferrer">GitHub</a> and unzip it.</>,
+              <><a className="underline underline-offset-4" onClick={() => track("cta_download")} href={ZIP}>Download the zip</a> and unzip it.</>,
               <>Open <code className="font-mono text-sm">chrome://extensions</code> and turn on Developer mode.</>,
-              <>Click Load unpacked and pick the <code className="font-mono text-sm">extension</code> folder.</>,
+              <>Click Load unpacked and pick the unzipped folder.</>,
               <>Pin ChatSnitch, click it, and see who's reading.</>,
             ].map((x, i) => (
               <li key={i} className="step rounded-2xl border border-line bg-panel/80 p-6 backdrop-blur">
@@ -244,6 +252,12 @@ export default function App() {
             <p className="reveal"><span className="font-semibold text-paper">Every language, fully.</span> Hidden all-sites access is spotted from Chrome's English wording. Named sites like claude.ai are caught in any language.</p>
             <p className="reveal"><span className="font-semibold text-paper">Firefox.</span> Built for Chromium browsers: Chrome, Edge, Brave. Firefox isn't supported yet.</p>
           </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 md:px-8 pb-28 text-center">
+          <h2 className="reveal display font-semibold text-3xl md:text-5xl">Found something in your browser?</h2>
+          <p className="reveal mx-auto mt-4 max-w-xl text-lg text-fog">A star on GitHub helps the next person find ChatSnitch before an extension finds their chats.</p>
+          <div className="reveal mt-8 flex justify-center"><StarButton size="lg" /></div>
         </section>
 
         <footer className="border-t border-line">

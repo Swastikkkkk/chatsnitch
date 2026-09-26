@@ -99,5 +99,6 @@ async function render() {
   $("#off").hidden = off.children.length === 0;
 }
 
+$("#ver").textContent = "v" + chrome.runtime.getManifest().version;
 $("#rescan").addEventListener("click", render);
 render();

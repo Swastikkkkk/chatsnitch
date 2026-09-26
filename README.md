@@ -1,62 +1,120 @@
-# ChatSnitch
+<p align="center">
+  <img src=".github/assets/social-card.png" alt="ChatSnitch: see which of your Chrome extensions can read your AI chats" width="100%">
+</p>
 
-See which of your Chrome extensions can read your AI chats.
+<p align="center">
+  <b>See which of your Chrome extensions can read your ChatGPT, Claude and Gemini chats.</b><br>
+  One click. One permission. No network access. Open source.
+</p>
 
-Security researchers keep catching extensions that copy ChatGPT, Claude and Gemini conversations to someone else's server: 900K users in December 2025 (OX Security), 8M+ installs the same month (Koi Security), another 470K+ in June 2026 (G DATA). Every write-up ends with "review your extension permissions". ChatSnitch does that review in one click.
+<p align="center">
+  <a href="https://github.com/Swastikkkkk/chatsnitch/stargazers"><img src="https://img.shields.io/github/stars/Swastikkkkk/chatsnitch?style=flat&color=white&labelColor=111" alt="GitHub stars"></a>
+  <a href="https://github.com/Swastikkkkk/chatsnitch/releases/latest"><img src="https://img.shields.io/github/v/release/Swastikkkkk/chatsnitch?color=white&labelColor=111" alt="Latest release"></a>
+  <img src="https://img.shields.io/badge/manifest-v3-white?labelColor=111" alt="Manifest V3">
+  <img src="https://img.shields.io/badge/network%20access-none-white?labelColor=111" alt="No network access">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-white?labelColor=111" alt="MIT license"></a>
+</p>
 
-## What it does
+<p align="center">
+  <a href="https://chatsnitch.vercel.app/?ref=github">Website</a> ·
+  <a href="https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch-v0.1.0.zip">Download</a> ·
+  <a href="#install-in-60-seconds">Install</a> ·
+  <a href="#how-it-decides">How it decides</a>
+</p>
 
-Click the icon and it lists every installed extension that can read ChatGPT, Claude, Gemini, Copilot, DeepSeek, Perplexity, Grok, Meta AI, Mistral or Poe, with:
+---
 
-- **Risk level**: high, check this, or low, with the reasons spelled out
-- **Why**: reads every site or asks for AI sites by name, reads cookies, watches network traffic, injects code, reads the clipboard, was installed by another program
-- **Turn off / Remove** buttons right there
+## Why this exists
 
-It catches content-script access too. `chrome.management` leaves that out, and it's exactly how the AI-sidebar stealers read chats, so ChatSnitch also parses Chrome's own permission warnings.
+Chrome extensions keep getting caught reading AI conversations and sending them to someone else's server:
+
+| When | What happened | Scale |
+|---|---|---|
+| Dec 2025 | Two fake AI extensions, one with Google's Featured badge, exfiltrated ChatGPT and DeepSeek chats every 30 minutes ([OX Security](https://www.ox.security/blog/malicious-chrome-extensions-steal-chatgpt-deepseek-conversations/)) | 900K users |
+| Dec 2025 | Urban VPN Proxy and 7 sister extensions auto-updated into capturing chats on ChatGPT, Claude, Gemini, Copilot and more ([Koi Security via Malwarebytes](https://www.malwarebytes.com/blog/news/2025/12/chrome-extension-slurps-up-ai-chats-after-users-installed-it-for-privacy)) | 8M+ installs |
+| Jun 2026 | Smart Sidebar, Chat AI and Urban VPN caught spying on eight AI chat sites ([G DATA](https://blog.gdatasoftware.com/2026/06/38428-browser-addons-spy-on-ai-chats)) | 470K+ users |
+
+Every report ends with "review your extension permissions". That takes minutes per extension, and most people have twenty. ChatSnitch does it in one click.
+
+<p align="center">
+  <img src=".github/assets/demo.gif" alt="ChatSnitch scanning and turning off a risky extension" width="320">
+</p>
+
+## What you get
+
+- **A count** of extensions that can see your AI chats right now
+- **A risk level** for each: high risk, check this, or low
+- **The reasons, in plain words**: reads every site, asked for claude.ai by name, reads your cookies, watches network traffic, injects code, reads your clipboard, was installed by another program
+- **Turn off / Remove** right there, and Turn back on if you change your mind
+
+Covers ChatGPT, Claude, Gemini, Copilot, DeepSeek, Perplexity, Grok, Meta AI, Mistral and Poe.
+
+## Install in 60 seconds
+
+Chrome Web Store listing is in progress. Until then:
+
+1. [Download `chatsnitch-v0.1.0.zip`](https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch-v0.1.0.zip) and unzip it
+2. Open `chrome://extensions` and switch on **Developer mode** (top right)
+3. Click **Load unpacked** and pick the unzipped folder
+
+Works in Chrome, Edge, Brave and other Chromium browsers.
+
+## How it decides
+
+The scoring lives in [`extension/analyze.js`](extension/analyze.js), about 160 lines with no dependencies.
+
+1. **Collect access.** It reads each extension's host permissions from `chrome.management`. That API leaves out content-script access, which is exactly how the AI-sidebar stealers read pages, so it also parses Chrome's own permission warnings ("Read and change your data on chatgpt.com, claude.ai...") back into match patterns.
+2. **Match AI sites.** Chrome match patterns are checked against each AI chat domain. `*.google.com` counts as Gemini on purpose. It errs toward flagging.
+3. **Score.** Named AI domains score higher than "all sites", because a sidebar asking for chatgpt.com by name is the stealer pattern and a dark-mode extension reading everything usually isn't. Cookies, webRequest, scripting, debugger, clipboard and native messaging each add risk. Sideloaded installs add the most.
+
+Verified in a real Chromium with five decoy extensions: it flagged the four that can read AI chats, ignored the tab counter, and Turn off disabled the fake VPN.
 
 ## Why you can trust it
 
-- One permission: `management`. No site access.
-- `connect-src 'none'` in its CSP. It cannot make network requests.
-- Under 300 lines of plain JS in `extension/`. No build step, no dependencies.
+An extension that inspects your extensions should be the most boring one you install.
 
-## Install (until it's on the Web Store)
+- **One permission:** `management`. It lists extensions and can turn them off.
+- **No site access.** It can't read any page, your chats included.
+- **No network.** `connect-src 'none'` in its content security policy. It can't phone home.
+- **Small.** Under 300 lines of plain JavaScript, no build step. Read it before you install it.
 
-1. Download this repo and unzip it.
-2. Open `chrome://extensions`, turn on **Developer mode**.
-3. **Load unpacked** and pick the `extension` folder.
+## Limits
 
-Works in Chrome, Edge and Brave.
+- It shows what an extension is *allowed* to do, not whether it is actually stealing.
+- Access you restricted to "On click" in Chrome still shows as granted.
+- Hidden all-sites access is parsed from Chrome's English warning text. Named domains are caught in any language.
+- No Firefox build yet.
 
-## Repo layout
+## Roadmap
 
-| Path | What |
-|---|---|
-| `extension/` | The extension. `analyze.js` is the scoring logic, `popup.*` is the UI. |
-| `tests/` | `npm test`: 19 tests on real Chrome warning strings and scoring. |
-| `web/` | Landing site (live at https://chatsnitch.vercel.app): Vite, React, Tailwind, GSAP, Aceternity UI, React Bits. Waitlist + cookieless analytics on Supabase. |
-| `supabase/migrations/` | Shared "launchpad" schema used by every launch site. |
-| `brag-output/` | Launch video (`brag.mp4`), poster, plan, share copy. |
-| `launch/` | X thread, Reddit posts and reel script drafts. |
+- [ ] Chrome Web Store listing
+- [ ] Warning parsing for more Chrome UI languages
+- [ ] Firefox (WebExtensions `management` API)
+- [ ] Alert when an installed extension gains new AI-site access after an update
+- [ ] Export a report to share with your IT team
+
+Help on any of these is welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Develop
 
 ```bash
-npm test                  # extension logic
-cd web && npm install
-cp .env.example .env      # fill in Supabase URL + publishable key
-npm run dev
+npm test                          # 19 tests on the analyzer, using real Chrome warning strings
+cd web && npm install && npm run dev   # landing site (needs web/.env, see web/.env.example)
 ```
 
-## How it was verified
+| Path | What |
+|---|---|
+| `extension/` | The extension. No build step. |
+| `tests/` | Analyzer tests (`node --test`). |
+| `web/` | [chatsnitch.vercel.app](https://chatsnitch.vercel.app/?ref=github): Vite, React, Tailwind, GSAP, Aceternity UI. |
+| `supabase/` | Waitlist and cookieless analytics schema for the site. The extension never talks to it. |
 
-Loaded into a real Chromium next to five decoy extensions (a "Free VPN" with cookies and webRequest, an AI sidebar that reads chatgpt.com/claude.ai via content scripts, a grammar tool, a dark mode, a tab counter). It flagged the four that can read AI chats, left the tab counter alone, and Turn off disabled the VPN.
+## Star history
 
-## Limits
+<a href="https://star-history.com/#Swastikkkkk/chatsnitch&Date">
+  <img src="https://api.star-history.com/svg?repos=Swastikkkkk/chatsnitch&type=Date&theme=dark" alt="Star history" width="600">
+</a>
 
-- Shows what an extension is *allowed* to do, not whether it's stealing.
-- Site access you restricted to "On click" still shows as granted.
-- Hidden all-sites access is parsed from Chrome's English wording. Named domains work in any language.
-- No Firefox yet.
+If ChatSnitch found something in your browser, starring the repo helps other people find it.
 
-MIT licensed.
+MIT licensed. Built by [Swastik](https://github.com/Swastikkkkk).

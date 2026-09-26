@@ -1,0 +1,23 @@
+name: Missed or wrong detection
+description: ChatSnitch flagged something it shouldn't, or missed something it should
+labels: [detection]
+body:
+  - type: input
+    id: ext
+    attributes: { label: Extension name and Web Store link }
+    validations: { required: true }
+  - type: textarea
+    id: warnings
+    attributes:
+      label: What Chrome shows under "Site access" / permissions for it
+      description: chrome://extensions → Details. Paste the permission lines.
+    validations: { required: true }
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What went wrong
+      options: [Missed it, Flagged it but shouldn't have, Wrong risk level]
+    validations: { required: true }
+  - type: input
+    id: lang
+    attributes: { label: Chrome UI language, placeholder: English }
