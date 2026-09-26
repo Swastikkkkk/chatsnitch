@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ChatSnitch</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand"><img src="icons/32.png" alt="" width="20" height="20"> ChatSnitch</div>
+    <button id="rescan" class="ghost" title="Scan again">Rescan</button>
+  </header>
+
+  <section id="summary" class="summary">
+    <div class="big" id="count">…</div>
+    <div class="label" id="headline">Scanning your extensions</div>
+    <div class="sub" id="subline"></div>
+  </section>
+
+  <main id="list"></main>
+
+  <section id="off" hidden>
+    <h2>Turned off</h2>
+    <div id="offlist"></div>
+  </section>
+
+  <footer>
+    ChatSnitch has no network access. Nothing leaves your browser.
+  </footer>
+
+  <template id="card">
+    <article class="card">
+      <div class="row">
+        <span class="name"></span>
+        <span class="badge"></span>
+      </div>
+      <div class="sites"></div>
+      <ul class="reasons"></ul>
+      <div class="actions">
+        <button class="disable">Turn off</button>
+        <button class="remove ghost">Remove</button>
+        <button class="enable ghost" hidden>Turn back on</button>
+      </div>
+    </article>
+  </template>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

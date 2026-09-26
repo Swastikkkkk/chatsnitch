@@ -1,0 +1,1 @@
+That "Read and change all your data on all websites" box you clicked through? It includes your ChatGPT and Claude chats. ChatSnitch shows which of your extensions can read them, in one click.

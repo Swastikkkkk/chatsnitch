@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
+  --color-ink: #000000;
+  --color-panel: #111113;
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-fog: #86868B;
+  --color-paper: #F5F5F7;
+}
+
+:root { color-scheme: dark; }
+html, body { background: #000; color: var(--color-paper); }
+body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.display { font-family: var(--font-display); letter-spacing: -0.035em; }
+h1, h2, h3 { text-wrap: balance; }
+:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
