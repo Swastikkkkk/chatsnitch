@@ -34,7 +34,7 @@ Works in Chrome, Edge and Brave.
 |---|---|
 | `extension/` | The extension. `analyze.js` is the scoring logic, `popup.*` is the UI. |
 | `tests/` | `npm test`: 19 tests on real Chrome warning strings and scoring. |
-| `web/` | Landing site: Vite, React, Tailwind, GSAP, Aceternity UI, React Bits. Waitlist + cookieless analytics on Supabase. |
+| `web/` | Landing site (live at https://chatsnitch.vercel.app): Vite, React, Tailwind, GSAP, Aceternity UI, React Bits. Waitlist + cookieless analytics on Supabase. |
 | `supabase/migrations/` | Shared "launchpad" schema used by every launch site. |
 | `brag-output/` | Launch video (`brag.mp4`), poster, plan, share copy. |
 | `launch/` | X thread, Reddit posts and reel script drafts. |

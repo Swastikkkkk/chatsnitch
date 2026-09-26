@@ -26,7 +26,7 @@ so ChatSnitch also parses Chrome's permission warnings. caught stuff the API alo
 **4/4**
 one permission. no network access at all. under 300 lines of JS you can read in 5 min
 
-free + open source: <site link>
+free + open source: chatsnitch.vercel.app
 code: github.com/Swastikkkkk/chatsnitch
 
 #buildinpublic

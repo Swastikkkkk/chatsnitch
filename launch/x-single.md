@@ -6,5 +6,5 @@ it includes your AI chats.
 
 built ChatSnitch: one click shows which of your extensions can read ChatGPT/Claude/Gemini. no network, open source
 
-<site link>
+chatsnitch.vercel.app
 #buildinpublic
