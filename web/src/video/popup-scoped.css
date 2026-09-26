@@ -7,7 +7,7 @@
 }
 * { box-sizing: border-box; }
 .pop { margin: 0; width: 380px; background: var(--bg); color: var(--text);
-       font: 13px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+       font: 13px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, "Segoe UI", Roboto, sans-serif; }
 .pop header { display:flex; justify-content:space-between; align-items:center; padding:12px 14px; border-bottom:1px solid var(--line); }
 .brand { display:flex; gap:8px; align-items:center; font-weight:700; letter-spacing:.2px; }
 .pop button { font:inherit; border-radius:8px; padding:6px 10px; cursor:pointer; border:1px solid transparent;
