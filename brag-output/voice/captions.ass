@@ -1,0 +1,33 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Cap,Inter ExtraBold,82,&H00FFFFFF,&H00FFFFFF,&H00000000,&H96000000,0,0,0,0,100,100,0,0,1,7,3,2,80,80,150,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.35,0:00:01.29,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}YOU CLICKED ALLOW
+Dialogue: 0,0:00:01.29,0:00:01.73,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}ON THIS,
+Dialogue: 0,0:00:01.73,0:00:02.06,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}RIGHT?
+Dialogue: 0,0:00:02.70,0:00:03.87,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}THAT INCLUDES YOUR
+Dialogue: 0,0:00:03.87,0:00:04.45,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}AI CHATS.
+Dialogue: 0,0:00:04.45,0:00:05.81,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}EXTENSIONS GOT CAUGHT
+Dialogue: 0,0:00:05.81,0:00:06.98,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}STEALING THEM FROM
+Dialogue: 0,0:00:06.98,0:00:07.56,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}MILLIONS.
+Dialogue: 0,0:00:07.90,0:00:08.60,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}SO I BUILT
+Dialogue: 0,0:00:08.60,0:00:09.36,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}CHATSNITCH.
+Dialogue: 0,0:00:09.36,0:00:10.34,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}IT SHOWS EVERY
+Dialogue: 0,0:00:10.34,0:00:11.60,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}EXTENSION THAT CAN
+Dialogue: 0,0:00:11.60,0:00:12.43,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}READ YOUR AI
+Dialogue: 0,0:00:12.43,0:00:12.85,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}CHATS.
+Dialogue: 0,0:00:14.30,0:00:15.30,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}DON'T TRUST ONE?
+Dialogue: 0,0:00:15.30,0:00:16.05,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}TURN IT OFF.
+Dialogue: 0,0:00:17.80,0:00:18.12,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}FREE,
+Dialogue: 0,0:00:18.12,0:00:18.89,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}OPEN SOURCE,
+Dialogue: 0,0:00:18.89,0:00:19.66,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}AND IT NEVER
+Dialogue: 0,0:00:19.66,0:00:21.00,Cap,,0,0,0,,{\fscx92\fscy92\t(0,90,\fscx100\fscy100)}TOUCHES THE INTERNET.
