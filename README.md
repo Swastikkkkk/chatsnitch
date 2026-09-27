@@ -9,6 +9,7 @@
 
 <p align="center">
   <a href="https://github.com/Swastikkkkk/chatsnitch/stargazers"><img src="https://img.shields.io/github/stars/Swastikkkkk/chatsnitch?style=flat&color=white&labelColor=111" alt="GitHub stars"></a>
+  <a href="https://github.com/Swastikkkkk/chatsnitch/actions/workflows/ci.yml"><img src="https://github.com/Swastikkkkk/chatsnitch/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/Swastikkkkk/chatsnitch/releases/latest"><img src="https://img.shields.io/github/v/release/Swastikkkkk/chatsnitch?color=white&labelColor=111" alt="Latest release"></a>
   <img src="https://img.shields.io/badge/manifest-v3-white?labelColor=111" alt="Manifest V3">
   <img src="https://img.shields.io/badge/network%20access-none-white?labelColor=111" alt="No network access">

@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Analyzer tests
+        run: npm test
+      - name: Manifest stays minimal
+        run: |
+          node -e '
+            const m = require("./extension/manifest.json");
+            const bad = [];
+            if (JSON.stringify(m.permissions) !== JSON.stringify(["management"])) bad.push("permissions changed: " + JSON.stringify(m.permissions));
+            if (m.host_permissions) bad.push("host_permissions added");
+            if (m.content_scripts) bad.push("content_scripts added");
+            if (!/connect-src .none./.test(m.content_security_policy?.extension_pages || "")) bad.push("network no longer blocked in CSP");
+            if (bad.length) { console.error(bad.join("\n")); process.exit(1); }
+            console.log("manifest ok: management only, no host access, no network");
+          '
