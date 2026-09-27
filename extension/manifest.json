@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "ChatSnitch: who can read your AI chats",
   "short_name": "ChatSnitch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "See which of your extensions can read ChatGPT, Claude, Gemini and other AI chats. Runs locally, no network access.",
   "permissions": ["management"],
   "action": {

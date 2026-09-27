@@ -18,7 +18,7 @@ import { joinWaitlist, track } from "@/lib/launchpad";
 
 gsap.registerPlugin(ScrollTrigger);
 const REPO = "https://github.com/Swastikkkkk/chatsnitch";
-const ZIP = "https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch-v0.1.0.zip";
+const ZIP = "https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch.zip";
 
 const STATS = [
   { n: "900K", unit: "users", when: "December 2025", src: "OX Security", href: "https://www.ox.security/blog/malicious-chrome-extensions-steal-chatgpt-deepseek-conversations/", body: "Two fake AI extensions sent ChatGPT and DeepSeek chats to attacker servers every 30 minutes. One had Google's Featured badge." },
@@ -221,7 +221,7 @@ export default function App() {
           <p className="reveal mt-4 max-w-2xl text-lg text-fog">The Chrome Web Store listing is on the way. Until then, loading it yourself takes about a minute.</p>
           <div className="reveal mt-8 flex flex-wrap items-center gap-3">
             <a href={ZIP} onClick={() => track("cta_download_btn")} className="inline-flex h-12 items-center gap-2 rounded-full bg-paper px-6 font-medium text-black transition hover:bg-white">
-              <Download size={18} /> Download v0.1.0
+              <Download size={18} /> Download v0.2.0
             </a>
             <a href={REPO} onClick={() => track("cta_code")} target="_blank" rel="noreferrer" className="inline-flex h-12 items-center gap-2 rounded-full px-5 text-paper/80 hover:text-paper">
               <Github size={18} /> Read the code first
@@ -249,7 +249,7 @@ export default function App() {
           <div className="mt-10 grid gap-x-12 gap-y-6 md:grid-cols-2 text-fog leading-relaxed">
             <p className="reveal"><span className="font-semibold text-paper">Whether an extension is actually stealing.</span> It shows what an extension is allowed to do. A dark-mode extension needs all-sites access to work, which is why those score low.</p>
             <p className="reveal"><span className="font-semibold text-paper">Access you restricted yourself.</span> If you set an extension to "On click", Chrome doesn't tell other extensions, so it still shows up here.</p>
-            <p className="reveal"><span className="font-semibold text-paper">Every language, fully.</span> Hidden all-sites access is spotted from Chrome's English wording. Named sites like claude.ai are caught in any language.</p>
+            <p className="reveal"><span className="font-semibold text-paper">Chrome Web Store, yet.</span> For now you load it yourself in about a minute. A store listing is on the way, and a one-click install along with it.</p>
             <p className="reveal"><span className="font-semibold text-paper">Firefox.</span> Built for Chromium browsers: Chrome, Edge, Brave. Firefox isn't supported yet.</p>
           </div>
         </section>

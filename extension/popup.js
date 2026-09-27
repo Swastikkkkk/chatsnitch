@@ -69,9 +69,31 @@ function renderCard(r, onChange) {
   return node;
 }
 
+// Ask Chrome how it words "all websites" and "a number of websites" in this
+// browser's language, using made-up manifests. Works in every UI language.
+let phrasesPromise;
+function localizedPhrases() {
+  const warn = (manifest) =>
+    new Promise((resolve) => {
+      try {
+        chrome.management.getPermissionWarningsByManifest(JSON.stringify(manifest), (w) =>
+          resolve(chrome.runtime.lastError ? [] : w || [])
+        );
+      } catch {
+        resolve([]);
+      }
+    });
+  const base = { manifest_version: 3, name: "probe", version: "1" };
+  phrasesPromise ||= Promise.all([
+    warn({ ...base, host_permissions: ["<all_urls>"] }),
+    warn({ ...base, host_permissions: Array.from({ length: 12 }, (_, i) => `https://probe${i}.example.com/*`) }),
+  ]).then(([all, many]) => ({ all, many }));
+  return phrasesPromise;
+}
+
 async function render() {
-  const all = await getAll();
-  const report = scan(all, chrome.runtime.id);
+  const [all, phrases] = await Promise.all([getAll(), localizedPhrases()]);
+  const report = scan(all, chrome.runtime.id, phrases);
 
   const count = $("#count");
   count.textContent = String(report.canRead);

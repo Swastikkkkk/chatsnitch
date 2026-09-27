@@ -53,19 +53,23 @@ export function isAllSites(pattern) {
 // chrome.management.hostPermissions leaves out content-script access, which is exactly
 // how the AI-chat stealers worked. Chrome's permission warnings do include it, so we
 // turn those strings back into match patterns. Domain names are locale independent;
-// the "all websites" phrase is matched in English.
+// The "all websites" / "a number of websites" phrases are language dependent, so the
+// popup asks Chrome for the exact localized wording at runtime (see popup.js) and
+// passes it in as `phrases`. The English patterns stay as a fallback.
 const DOMAIN = /\b((?:[a-z0-9-]+\.)+[a-z]{2,})\b/gi;
 
-export function hostsFromWarnings(warnings = []) {
+export function hostsFromWarnings(warnings = [], phrases = {}) {
+  const all = new Set(phrases.all || []);
+  const many = new Set(phrases.many || []);
   const patterns = new Set();
   let unnamed = false;
   for (const w of warnings) {
-    if (/\bon all websites\b/i.test(w)) {
+    if (all.has(w) || /\bon all websites\b/i.test(w)) {
       patterns.add("<all_urls>");
       continue;
     }
-    if (/a number of websites/i.test(w)) unnamed = true;
-    if (!/(data|website|site)/i.test(w)) continue;
+    if (many.has(w) || /a number of websites/i.test(w)) { unnamed = true; continue; }
+    // No keyword filter here: warning text is localized, domain names are not.
     for (const m of w.matchAll(DOMAIN)) {
       // Treat each named domain as covering its subdomains too. This errs on the side
       // of flagging (google.com -> Gemini), which is the right way to be wrong here.
@@ -87,8 +91,8 @@ export function aiSitesFor(hostPermissions = []) {
 }
 
 // Score one extension. Returns null when it cannot touch any AI chat site.
-export function assess(ext) {
-  const fromWarnings = hostsFromWarnings(ext.warnings || []);
+export function assess(ext, phrases = {}) {
+  const fromWarnings = hostsFromWarnings(ext.warnings || [], phrases);
   const hostPermissions = [...(ext.hostPermissions || []), ...fromWarnings.patterns];
   const permissions = ext.permissions || [];
   const sites = aiSitesFor(hostPermissions);
@@ -138,12 +142,12 @@ export function assess(ext) {
 }
 
 // Run over the whole list from chrome.management.getAll().
-export function scan(extensions, selfId = null) {
+export function scan(extensions, selfId = null, phrases = {}) {
   const results = [];
   for (const ext of extensions) {
     if (ext.id === selfId) continue;
     if (ext.type && ext.type !== "extension") continue; // themes, apps
-    const r = assess(ext);
+    const r = assess(ext, phrases);
     if (r) results.push(r);
   }
   const order = { high: 0, medium: 1, low: 2 };

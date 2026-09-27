@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SITE: https://chatsnitch.vercel.app
-      ZIP: https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch-v0.1.0.zip
+      ZIP: https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch.zip
       SUPABASE_URL: https://oceaylrebzflgyxfjqfb.supabase.co
       # Publishable key: safe to be public, can only call join_waitlist/track.
       SUPABASE_KEY: sb_publishable_6XZVSO2cS78UBwjFwVpoxw_CRywY421

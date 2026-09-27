@@ -126,3 +126,33 @@ test("'a number of websites' with no named AI host is flagged as unknown", () =>
   assert.equal(r.level, "medium");
   assert.deepEqual(r.sites, ["Several sites"]);
 });
+
+// Localized phrases, as returned by getPermissionWarningsByManifest (captured from Chromium in de / hi).
+test("localized all-websites phrase (German) is caught when passed in", () => {
+  const de = "Alle deine Daten auf allen Websites lesen und ändern";
+  const phrases = { all: [de], many: [] };
+  assert.deepEqual(hostsFromWarnings([de], phrases).patterns, ["<all_urls>"]);
+  const r = assess({ id: "d", name: "Dunkelmodus", hostPermissions: [], permissions: [], warnings: [de] }, phrases);
+  assert.ok(r && r.allSites);
+});
+
+test("localized 'a number of websites' phrase is caught when passed in", () => {
+  const hi = "कई वेबसाइटों पर अपना डेटा पढ़ें और बदलें";
+  const r = assess({ id: "m", name: "Many", hostPermissions: [], permissions: [], warnings: [hi] }, { all: [], many: [hi] });
+  assert.deepEqual(r.sites, ["Several sites"]);
+});
+
+test("without phrases, a non-English all-sites warning is not guessed", () => {
+  const de = "Alle deine Daten auf allen Websites lesen und ändern";
+  assert.equal(assess({ id: "d", name: "x", hostPermissions: [], permissions: [], warnings: [de] }), null);
+});
+
+// Real strings captured from Chromium running in German, Hindi and French.
+test("named AI domains are caught in any UI language", () => {
+  for (const w of [
+    "Eigene Daten auf chatgpt.com, claude.ai und gemini.google.com lesen und ändern",
+    "Accéder aux données de chatgpt.com, claude.ai et gemini.google.com, et les modifier",
+  ]) {
+    assert.deepEqual(aiSitesFor(hostsFromWarnings([w]).patterns), ["ChatGPT", "Claude", "Gemini"], w);
+  }
+});

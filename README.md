@@ -18,7 +18,7 @@
 
 <p align="center">
   <a href="https://chatsnitch.vercel.app/?ref=github">Website</a> ·
-  <a href="https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch-v0.1.0.zip">Download</a> ·
+  <a href="https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch.zip">Download</a> ·
   <a href="#install-in-60-seconds">Install</a> ·
   <a href="#how-it-decides">How it decides</a>
 </p>
@@ -54,7 +54,7 @@ Covers ChatGPT, Claude, Gemini, Copilot, DeepSeek, Perplexity, Grok, Meta AI, Mi
 
 Chrome Web Store listing is in progress. Until then:
 
-1. [Download `chatsnitch-v0.1.0.zip`](https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch-v0.1.0.zip) and unzip it
+1. [Download `chatsnitch.zip`](https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch.zip) and unzip it
 2. Open `chrome://extensions` and switch on **Developer mode** (top right)
 3. Click **Load unpacked** and pick the unzipped folder
 
@@ -64,7 +64,7 @@ Works in Chrome, Edge, Brave and other Chromium browsers.
 
 The scoring lives in [`extension/analyze.js`](extension/analyze.js), about 160 lines with no dependencies.
 
-1. **Collect access.** It reads each extension's host permissions from `chrome.management`. That API leaves out content-script access, which is exactly how the AI-sidebar stealers read pages, so it also parses Chrome's own permission warnings ("Read and change your data on chatgpt.com, claude.ai...") back into match patterns.
+1. **Collect access.** It reads each extension's host permissions from `chrome.management`. That API leaves out content-script access, which is exactly how the AI-sidebar stealers read pages, so it also parses Chrome's own permission warnings ("Read and change your data on chatgpt.com, claude.ai...") back into match patterns. Those warnings are localized, so ChatSnitch asks Chrome for its exact wording of "all websites" in your language with `getPermissionWarningsByManifest`.
 2. **Match AI sites.** Chrome match patterns are checked against each AI chat domain. `*.google.com` counts as Gemini on purpose. It errs toward flagging.
 3. **Score.** Named AI domains score higher than "all sites", because a sidebar asking for chatgpt.com by name is the stealer pattern and a dark-mode extension reading everything usually isn't. Cookies, webRequest, scripting, debugger, clipboard and native messaging each add risk. Sideloaded installs add the most.
 
@@ -83,13 +83,13 @@ An extension that inspects your extensions should be the most boring one you ins
 
 - It shows what an extension is *allowed* to do, not whether it is actually stealing.
 - Access you restricted to "On click" in Chrome still shows as granted.
-- Hidden all-sites access is parsed from Chrome's English warning text. Named domains are caught in any language.
+- Works in every Chrome UI language: ChatSnitch asks Chrome how it words "all websites" in yours. Tested in English, German, Hindi, French, Spanish and Japanese.
 - No Firefox build yet.
 
 ## Roadmap
 
 - [ ] Chrome Web Store listing
-- [ ] Warning parsing for more Chrome UI languages
+- [x] Every Chrome UI language (v0.2.0)
 - [ ] Firefox (WebExtensions `management` API)
 - [ ] Alert when an installed extension gains new AI-site access after an update
 - [ ] Export a report to share with your IT team
@@ -99,8 +99,15 @@ Help on any of these is welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Develop
 
 ```bash
-npm test                          # 19 tests on the analyzer, using real Chrome warning strings
+npm test                          # 23 tests on the analyzer, using real Chrome warning strings
 cd web && npm install && npm run dev   # landing site (needs web/.env, see web/.env.example)
+```
+
+Scan a browser profile from the command line, without installing anything (read-only):
+
+```bash
+node tools/scan-profile.mjs            # finds Chrome, Edge and Brave profiles automatically
+node tools/scan-profile.mjs "<path to a profile folder>"
 ```
 
 | Path | What |
