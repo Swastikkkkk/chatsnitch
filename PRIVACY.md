@@ -14,6 +14,6 @@ The source code is public: https://github.com/Swastikkkkk/chatsnitch
 
 **Website (chatsnitch.vercel.app)**
 
-The website is separate from the extension. It records anonymous page visits and button clicks (page path, referring site and campaign tag) without cookies, IP addresses or any identifier. If you join the waitlist, your email address is stored only to send one message when the extension is available in the Chrome Web Store. To remove it, open an issue or contact the author via GitHub.
+The website is separate from the extension. It records anonymous page visits and button clicks (page path, referring site and campaign tag) without cookies or any identifier. To stop abuse, the network your request comes from is turned into a salted, one-way hash that changes every day and is deleted within a day; the address itself is never stored. If you join the waitlist, your email address is stored only to send one message when the extension is available in the Chrome Web Store. To remove it, open an issue or contact the author via GitHub.
 
 Contact: https://github.com/Swastikkkkk

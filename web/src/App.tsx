@@ -46,17 +46,28 @@ function Glow({ children, className = "" }: { children: React.ReactNode; classNa
 
 function Waitlist() {
   const [email, setEmail] = useState("");
+  // Bot trap: a field people never see, and a minimum time before a real person can submit.
+  const [trap, setTrap] = useState("");
+  const shownAt = useRef(Date.now());
   const [state, setState] = useState<{ kind: "idle" | "ok" | "err"; msg?: string }>({ kind: "idle" });
   return (
     <div className="reveal mt-14 rounded-3xl border border-line bg-panel/80 p-8 md:p-10 backdrop-blur text-center">
       <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">Want it from the Chrome Web Store?</h3>
       <p className="mx-auto mt-2 max-w-md text-fog">One email when the listing goes live. Nothing else, ever.</p>
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor="cs-website">Website</label>
+        <input id="cs-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
+      </div>
       <div className="mt-7">
         <PlaceholdersAndVanishInput
           placeholders={["you@example.com", "Email me when it's on the Web Store", "One email. That's it."]}
           onChange={(e) => { setEmail(e.target.value); if (state.kind !== "idle") setState({ kind: "idle" }); }}
           onSubmit={async (e) => {
             e.preventDefault();
+            if (trap || Date.now() - shownAt.current < 2500) {
+              setState({ kind: "ok", msg: "You're on the list. One email when it's live." });
+              return;
+            }
             const r = await joinWaitlist(email, "site-install");
             setState(r.ok ? { kind: "ok", msg: "You're on the list. One email when it's live." } : { kind: "err", msg: r.error });
           }}
