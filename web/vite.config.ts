@@ -6,6 +6,6 @@ import path from "node:path";
 export default defineConfig({
   base: "./",
   plugins: [react(), tailwindcss()],
-  build: { rollupOptions: { input: { main: path.resolve(__dirname, "index.html"), video: path.resolve(__dirname, "video.html") } } },
+  build: { rollupOptions: { input: { main: path.resolve(__dirname, "index.html"), video: path.resolve(__dirname, "video.html"), game: path.resolve(__dirname, "game.html") } } },
   resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
 });
