@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
   <img src=".github/assets/social-card.png" alt="ChatSnitch: see which of your Chrome extensions can read your AI chats" width="100%">
 </p>
 
@@ -17,9 +17,9 @@
 </p>
 
 <p align="center">
-  <a href="https://chatsnitch.vercel.app/?ref=github">Website</a> ·
-  <a href="https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch.zip">Download</a> ·
-  <a href="#install-in-60-seconds">Install</a> ·
+  <a href="https://chatsnitch.vercel.app/?ref=github">Website</a> Â·
+  <a href="https://github.com/Swastikkkkk/chatsnitch/releases/latest/download/chatsnitch.zip">Download</a> Â·
+  <a href="#install-in-60-seconds">Install</a> Â·
   <a href="#how-it-decides">How it decides</a>
 </p>
 
@@ -100,7 +100,6 @@ Help on any of these is welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ```bash
 npm test                          # 23 tests on the analyzer, using real Chrome warning strings
-cd web && npm install && npm run dev   # landing site (needs web/.env, see web/.env.example)
 ```
 
 Scan a browser profile from the command line, without installing anything (read-only):
@@ -114,8 +113,6 @@ node tools/scan-profile.mjs "<path to a profile folder>"
 |---|---|
 | `extension/` | The extension. No build step. |
 | `tests/` | Analyzer tests (`node --test`). |
-| `web/` | [chatsnitch.vercel.app](https://chatsnitch.vercel.app/?ref=github): Vite, React, Tailwind, GSAP, Aceternity UI. |
-| `supabase/` | Waitlist and cookieless analytics schema for the site. The extension never talks to it. |
 
 ## Star history
 
